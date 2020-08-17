@@ -1,0 +1,67 @@
+vue2之对象属性的监听:
+1.普通的watch
+data() {
+    return {
+        frontPoints: 0
+    }
+},
+watch: {
+    frontPoints(newValue, oldValue) {
+        console.log(newValue)
+    }
+}
+
+2.对象属性的watch
+data() {
+　　return {
+　　　　bet: {
+　　　　　　pokerState: 53,
+　　　　　　pokerHistory: 'local'
+　　　　}
+    }
+},
+watch: {
+　　bet: {
+　　　　handler(newValue, oldValue) {
+　　　　　　console.log(newValue)
+　　　　},
+　　　　deep: true
+　　}
+}
+tips: 只要bet中的属性发生变化（可被监测到的），便会执行handler函数；
+如果想监测具体的属性变化，如pokerHistory变化时，才执行handler函数，则可以利用计算属性computed做中间层。
+事例如下：
+
+3.对象具体属性的watch
+data() {
+　　return {
+　　　　bet: {
+　　　　　　pokerState: 53,
+　　　　　　pokerHistory: 'local'
+　　　　}
+    }
+},
+computed: {
+　　pokerHistory() {
+　　　　return this.bet.pokerHistory
+　　}
+},
+watch: {
+　　pokerHistory(newValue, oldValue) {
+　　　　console.log(newValue)
+　　}
+}
+对象具体属性的watch可以直接用引号把属性括起来，就可以实现对象中特定属性的监听事件：
+data() {
+　　return {
+　　　　bet: {
+　　　　　　pokerState: 53,
+　　　　　　pokerHistory: 'local'
+　　　　}
+    }
+},
+watch: {
+　　'bet.pokerHistory'(newValue, oldValue) {
+　　　　console.log(newValue)
+　　}
+}

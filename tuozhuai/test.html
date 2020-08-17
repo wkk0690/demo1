@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin:0;padding: 0}
+        .box{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div style="height: 625px;width: 1112px;background-image: url('./assets/img/bg.jpg')">
+
+        <div class="box" v-drag="flag" style="position: absolute;top: 20px;left: 20px">花</div>
+
+    </div>
+    <div class="box" v-drag="flag">蜡烛</div>
+    <div class="box" v-drag="flag" style="position: absolute; left: 120px">纸钱</div>
+
+</div>
+<div data-id="0"  id="box"></div>
+</body>
+</html>
+<script src="./js/vue.min2.js"></script>
+<script>
+    Vue.directive("drag",(el, {modifiers, value}) => {
+        el.style.position = "absolute";
+        let {x, y} = modifiers;
+        el.addEventListener("mousedown", donw);
+        var disX,disY;
+        function donw(e){
+            disX = e.offsetX;
+            disY = e.offsetY;
+            console.log(disX);
+            console.log(disY);
+            document.addEventListener("mousemove", move);
+            document.addEventListener("mouseup", up)
+        }
+
+        function move(e){
+            var l = e.clientX - disX;
+            var t = e.clientY - disY;
+            if(value){
+                if(x){
+                    el.style.left = l + 'px';
+                }
+                if(y){
+                    el.style.top = t + 'px';
+                }
+                l = l > 1012 ? 1012 : l;
+                l = l < 0 ? 0 : l;
+                t = t > 525 ? 525 : t;
+                t = t < 0 ? 0 : t;
+
+                if(x && y || (!x && !y)){
+                    console.log("l   ", l);
+                    console.log("t   ", t);
+                    el.style.left = l + 'px';
+                    el.style.top = t + 'px';
+                }
+
+            }
+        }
+
+        function up(e){
+            document.removeEventListener("mousemove",move);
+            document.removeEventListener("mouseup",up);
+        }
+    })
+
+    new Vue({
+        el:"#app",
+        data:{
+            flag:true,
+            msg:"123"
+        }
+    })
+</script>

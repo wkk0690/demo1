@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+
+<head>
+    <meta charset="utf-8">
+    <title>明灯小站</title>
+
+</head>
+<body>
+<div id="app">
+    <!-- v-bind 用法 -->
+    <a :href="url">hello!</a>
+    <a v-bind:href="url">hello!</a>
+    <a v-on:click="doSomething">hello!</a>
+    <a @click="doSomething">hello!</a>
+</div>
+<script>
+
+    document.title = 'jackand rose'
+    $.get("../json/a.json",function (data) {
+        console.log(data)
+    })
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            url:"www.baidu.com"
+        }
+    })
+    
+    function doSomething() {
+
+    }
+
+    console.log(document.documentElement.outerHTML)
+</script>
+
+</body>
+</html>

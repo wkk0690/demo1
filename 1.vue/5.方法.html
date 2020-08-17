@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>明灯小站</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <!-- 方法与事件处理器 -->
+    <ul id="example-1">
+        <button v-on:click="greet">greet</button>
+        <button v-on:click="say('你好')">say 你好</button>
+        <button v-on:click="say('hello')">say hello</button>
+
+        <button v-on:keyup.13="enter1()">敲回车1</button>
+        <button v-on:keyup.enter="enter2()">敲回车2</button>
+        <button @keyup.enter="enter3()">敲回车3</button>
+    </ul>
+</div>
+
+<script>
+    var vm = new Vue({
+        el: "#example-1",
+        data: {
+            name:'helloworld'
+        },
+        //在method中定义方法
+        methods:{
+            greet:function(event){
+                alert('name属性:'+ this.name + '!') //name属性:helloworld
+                alert(event.target.tagName)  //BUTTON
+            },
+            say:function(msg){
+                alert(msg)
+            },
+            enter1:function () {
+                alert('点击1')
+            },
+            enter2:function () {
+                alert('点击2')
+            },
+            enter3:function () {
+                alert('点击3')
+            }
+        }
+    })
+    //调用方法
+    vm.greet()
+</script>
+</body>
+</html>

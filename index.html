@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <div id="demo">
+            <div class="aa">2222</div>
+            <div class="aa">2222</div>
+        </div>
+
+    </div>
+
+</body>
+<script type="text/javascript">
+    console.log(document.getElementsByClassName("aa"));
+    document.getElementsByClassName("aa").onclick=function() {
+            this.parentNode.removeChild(this)
+        }
+</script>
+</html>

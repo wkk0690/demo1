@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="./jquery.barrager.js"></script>
+    <script type="text/javascript">
+
+
+        $(function () {
+            $('#qc').click(function () {
+                $('canvas').barrager("clear");
+            });
+            $('#tj').click(function () {
+                var val = $("#aa").val()
+                if(!val) alert("请输入")
+                $('canvas').barrager(
+                    [
+                        {"msg": val},
+                    ]
+                );
+            });
+        })
+    </script>
+
+</head>
+<body>
+<input type="text" id="aa" />
+<button id="tj" type="button" style="width: 100px;height: 50px;font-size: 30px;">发送弹幕</button>
+<button id="qc" type="button" style="width: 100px;height: 50px;font-size: 30px;">清除</button>
+<br>
+<canvas style="width: 1280px;height: 720px;background-color: rgba(0,0,0,0.2)">你的浏览器不支持canvas</canvas>
+
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+    <script src="../js/pako.min.js"></script>
+<body>
+
+</body>
+
+<script>
+    var socket;
+    var socketOpen = false;
+    socket = socket = new WebSocket("wss://stream2.binance.cloud/stream?streams=ltcusdt@kline_1m/ltcusdt@kline_5m/ltcusdt@kline_15m/ltcusdt@kline_30m/ltcusdt@kline_1h/ltcusdt@kline_4h/ltcusdt@kline_1d/ltcusdt@kline_1w/ltcusdt@kline_1M/ltcusdt@ticker/ltcusdt@depth5/ltcusdt@trade/");
+    //socket = socket = new WebSocket("wss://stream2.binance.cloud/stream?streams=btcusdt@miniTicker/");
+    //socket = socket = new WebSocket("wss://stream2.binance.cloud/stream?streams=btcusdt@depth5/btcusdt@trade/");
+    //socket = socket = new WebSocket("wss://api.huobipro.com/ws");
+    //socket = socket = new WebSocket("ws://localhost:8083/vct-ws/webSocket");
+
+    //wss://stream2.binance.cloud/ws/6CNNKFH79XzdUreJo9wxx2yIAmXuGNi1CYYhQBRUB3dgA1M3XCAb97SGULXC
+    //wss://jpush.binance.im:5000/socket.io/?EIO=3&transport=websocket
+    //wss://stream2.binance.cloud/stream?streams=!miniTicker@arr@3000ms/btcusdt@depth.b10/btcusdt@aggTrade.b10
+    //wss://stream2.binance.cloud/stream?streams=btcusdt@kline_1m.b10
+
+    //wss://stream2.binance.cloud/stream?streams=ethusdt@depth5  深度
+    //wss://stream2.binance.cloud/stream?streams=ethusdt@trade 实时成交
+
+    socket.connectionTimeout = 6000;
+    socket.binaryType = "arraybuffer";
+    socket.onerror = function () {
+        socketOpen = false;
+        console.log("error");
+        console.log(arguments);
+    };
+    socket.onclose = function (event) {
+        socketOpen = false;
+        console.log("WebSocket close at time: " + new Date());
+    };
+    socket.onopen = function (event) {
+        console.log("WebSocket onopen at time: " + new Date());
+        socketOpen = true;
+        socket.binaryType = "arraybuffer";
+
+        // socket.send(JSON.stringify({ //k线订阅
+        //     sub: 'market.btcusdt.detail',
+        //     id: '123'
+        // }));
+    };
+
+    socket.onmessage = function (event) {
+        //console.log(event.data);
+        console.log(JSON.parse(event.data))
+
+        // var raw_data = event.data;
+        // var json = pako.inflate(raw_data, { to: "string" });
+        // var data = JSON.parse(json);
+        // var ps = data.ping;
+        // if(ps){
+        //     socket.send(JSON.stringify({"pong":ps}))
+        // }else{
+        //     console.log(data)
+        // }
+    }
+</script>
+</html>

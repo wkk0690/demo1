@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>音乐</title>
+
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+
+<!--
+
+参考：
+http://www.w3school.com.cn/tags/html_ref_eventattributes.asp
+
+-->
+
+
+<video id="video" src="../static/res/1.初识JVM.mp4" controls="controls">
+    您的浏览器不支持 video 标签。
+</video>
+<br/>
+<button onclick="openBtn()">播放</button>
+<button onclick="closeBtn()">暂停</button>
+<button onclick="muteBtn()">静音</button>
+<button onclick="cancelMuteBtn()">取消静音</button>
+<button onclick="loadBtn()">重新播放</button>
+<select  onchange="rateBtn(this.value)">
+    <optgroup label="减速度">
+        <option value="-0.5">-0.5倍速</option>
+    </optgroup>
+    <optgroup label="加速度">
+        <option value="0.5">0.5倍速</option>
+        <option value="1.0">1倍速</option>
+        <option value="2.0">2倍速</option>
+    </optgroup>
+</select>
+<br>
+<button onclick="volumeBtn()">音量+</button>
+<br>
+<button onclick="infoBtn()">播放信息</button>
+<div id="info" style="width: 200px;height: 200px;border:1px solid;"></div>
+
+<script>
+    let video = document.getElementById("video");
+    $(function () {
+        video.addEventListener("loadeddata", //歌曲一经完整的加载完毕(也可以写成上面提到的那些事件类型)
+            function () {
+                console.log("loadeddata")
+            }, false);
+
+        video.addEventListener("pause",
+            function () { //监听暂停
+                console.log("pause")
+            }, false);
+        video.addEventListener("play",
+            function () { //监听暂停
+                console.log("play")
+            }, false);
+        video.addEventListener("ended", function () {
+            console.log("ended")
+        }, false)
+    })
+
+
+    function openBtn() {
+        video.play();//开始播放
+    }
+    function closeBtn() {
+        video.pause();//暂停
+    }
+    function muteBtn() {
+         video.muted = true;//静音
+    }
+    function cancelMuteBtn() {
+        video.muted = false;//取消静音
+    }
+
+    function rateBtn(rate) {
+        console.log(rate);
+        video.playbackRate = rate;//播放速度【为负数时，浏览器可能不支持】
+    }
+
+    function loadBtn(rate) {
+        video.load();//重新播放
+    }
+
+    function rateBtn(rate) {
+        console.log(rate);
+        video.playbackRate = rate;//播放速度【为负数时，浏览器可能不支持】
+    }
+
+    function infoBtn() {
+        let html = "";
+        html += "<span>音频的长度: "+video.duration+"</span><br/>";//返回音频的长度（以秒计）。
+        html += "<span>音量: "+video.volume+"</span><br/>";//返回音频的长度（以秒计）。
+        document.getElementById("info").innerHTML = html;
+    }
+
+    let i=0;
+    function volumeBtn() {
+        i = i+0.1;
+        video.volume = i; //音量
+    }
+
+    // networkState:
+    // 表示音频/视频元素的当前网络状态：
+    // 0 = NETWORK_EMPTY - 音频/视频尚未初始化
+    // 1 = NETWORK_IDLE - 音频/视频是活动的且已选取资源，但并未使用网络
+    // 2 = NETWORK_LOADING - 浏览器正在下载数据
+    // 3 = NETWORK_NO_SOURCE - 未找到音频/视频来源
+
+
+    // playbackspeed 指示音频/视频的当前播放速度。
+    // 例值：
+    // 1.0 正常速度
+    // 0.5 半速（更慢）
+    // 2.0 倍速（更快）
+    // -1.0 向后，正常速度
+    // -0.5 向后，半速
+
+
+    // volume
+    // 规定音频/视频的当前音量。必须是介于 0.0 与 1.0 之间的数字。
+    // 例值：
+    // 1.0 是最高音量（默认）
+    // 0.5 是一半音量 （50%）
+    // 0.0 是静音
+</script>
+</body>
+</html>
